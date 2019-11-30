@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ABasicWebAPI.Models;
+using BlackjackLib;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntroductionToCoreWebAPI.Controllers
@@ -10,12 +8,12 @@ namespace IntroductionToCoreWebAPI.Controllers
     // [Route("api/[controller]/[action]/{id?}")]
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayController : ControllerBase
+    public class BlackjackController : ControllerBase
     {
-        private HighCard highCardGame;
-        public PlayController()
+        public Blackjack BlackjackGame { get; set; }
+        public BlackjackController()
         {
-            highCardGame = new HighCard();
+            BlackjackGame = new Blackjack(new List<Deck>(), new List<Player>(), new Player(new List<Card>(), 1));
         }
 
         //[Route("api/Play/Deal/{userID:int}/{age:int}")]
@@ -27,7 +25,7 @@ namespace IntroductionToCoreWebAPI.Controllers
         //[ResponseType(typeof(Card))]
         public ActionResult<Card> Deal()
         {
-            Card card = highCardGame.Deal();
+            Card card = null;//highCardGame.Deal();
             //return 5;
             return card;
         }
