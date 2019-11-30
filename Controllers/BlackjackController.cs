@@ -33,15 +33,21 @@ namespace IntroductionToCoreWebAPI.Controllers
         [HttpGet]
         [Route("Deal")]
         //[ResponseType(typeof(Card))]
-        public ActionResult<Card> Deal(int numberOfPlayers)
+        public ActionResult<string> Deal(int numberOfPlayers)
         {
             if (numberOfPlayers <= 0)
             {
                 return BadRequest(new ErrorResult(1, "Negative Number of Players"));
             }
-            Card card = null;//highCardGame.Deal();
-            //return 5;
-            return card;
+
+            for (int players = 0; players < numberOfPlayers; players++)
+            {
+                this.BlackjackGame.Players.Add(new Player(new List<Card>(),players+1 ));
+            }
+
+            this.BlackjackGame.Deal();
+
+            return "";
         }
 
         // GET api/play
