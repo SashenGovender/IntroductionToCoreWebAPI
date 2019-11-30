@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <h1>A Simple Game</h1>
+    <label id="data"> Hi</label>
+    <button type="button" id="deal" onclick="DealCard()">Deal a Card</button>
+</head>
+
+<body>
+    <script>
+        async function DealCard() {
+            let response = await fetch('https://localhost:44339/api/play/deal', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            var x = document.getElementById("data");
+            if (response.ok) { // if HTTP-status is 200-299
+                // get the response body (the method explained below)
+                let json = await response.json();
+                x.textContent = `${JSON.stringify (json)}`;
+            }
+            else {
+                x.textContent = `An Error occurred ${response.status}`;
+            }
+
+
+        }
+
+    </script>
+
+</body>
+
+</html>
