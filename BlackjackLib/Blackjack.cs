@@ -42,6 +42,7 @@ namespace BlackjackLib
                 if (player.Cards != null)
                 {
                     player.AddCard(GetCard());
+                    player.AddCard(GetCard());
                 }
             }
 
@@ -59,7 +60,7 @@ namespace BlackjackLib
         // ---------------------------------------------------------------------------------------------------------------
         public void DealerHit()
         {
-            while (this.Dealer.Score() <= 17)
+            while (this.Dealer.Score <= 17)
             {
                 this.Dealer.AddCard(GetCard());
             }
@@ -68,8 +69,8 @@ namespace BlackjackLib
         // ---------------------------------------------------------------------------------------------------------------
         public PlayResult EvaluateHand(int playerId)
         {
-            int playerScore = this.Players.First(player => player.PlayerID == playerId).Score();
-            int dealerScore = this.Dealer.Score();
+            int playerScore = this.Players.First(player => player.PlayerID == playerId).Score;
+            int dealerScore = this.Dealer.Score;
 
             if (playerScore > BlackjackWin)
             {

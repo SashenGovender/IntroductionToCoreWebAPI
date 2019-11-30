@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+//using System.Text.Json;
 using BlackjackLib;
 using IntroductionToCoreWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace IntroductionToCoreWebAPI.Controllers
 {
@@ -31,7 +33,7 @@ namespace IntroductionToCoreWebAPI.Controllers
 
         // ---------------------------------------------------------------------------------------------------------------
         [HttpGet]
-        [Route("Deal")]
+        [Route("Deal/{numberOfPlayers}")]
         //[ResponseType(typeof(Card))]
         public ActionResult<string> Deal(int numberOfPlayers)
         {
@@ -46,8 +48,14 @@ namespace IntroductionToCoreWebAPI.Controllers
             }
 
             this.BlackjackGame.Deal();
-
-            return "";
+            var abc = new DealResponse(this.BlackjackGame.Dealer, this.BlackjackGame.Players);
+            // return JsonSerializer.Serialize(abc);
+            
+           // var stringEnumConverter = new System.Text.Json.Serialization.JsonStringEnumConverter(); //
+           // JsonSerializerOptions opts = new JsonSerializerOptions();
+            //opts.Converters.Add(stringEnumConverter);
+           // return JsonSerializer.Serialize<DealResponse>(abc);
+            return JsonConvert.SerializeObject(abc);
         }
 
         // GET api/play

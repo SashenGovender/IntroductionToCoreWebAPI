@@ -5,8 +5,10 @@ namespace BlackjackLib
     public class Player
     {
         // ---------------------------------------------------------------------------------------------------------------
-        public readonly List<Card> Cards;
+        public List<Card> Cards { get; private set; }
         public int PlayerID { get; private set; }
+
+        public int Score => CalculateScore();
 
         // ---------------------------------------------------------------------------------------------------------------
         public Player(List<Card> cards, int playerId)
@@ -16,7 +18,7 @@ namespace BlackjackLib
         }
 
         // ---------------------------------------------------------------------------------------------------------------
-        public int Score()
+        private int CalculateScore()
         {
             int sum = 0;
             bool hasAce11InSum = false;

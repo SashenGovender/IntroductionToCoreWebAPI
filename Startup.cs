@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,13 +25,20 @@ namespace IntroductionToCoreWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //services
+            //    .AddControllers()
+            //    .AddJsonOptions(options =>
+            //        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+            //    );
+
             //services.AddCors(options =>
             //{
             //    options.AddPolicy("sashen",
             //    builder =>
             //    {
             //        builder.WithOrigins("file:///D:/Downloads/Programming%20Learning/Projects/IntroductionToCoreWebAPI/game.html");
-                                        
+
             //    });
             //});
         }
