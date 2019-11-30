@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlackjackLib;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntroductionToCoreWebAPI.Controllers
@@ -9,58 +10,58 @@ namespace IntroductionToCoreWebAPI.Controllers
     [ApiController]
     public class HighCardController : ControllerBase
     {
-        //private HighCard highCardGame;
-        //public HighCardController()
-        //{
-        //    highCardGame = new HighCard();
-        //}
+       // private HighCard highCardGame;
+        public HighCardController()
+        {
+       //     highCardGame = new HighCard();
+        }
 
-        ////[Route("api/Play/Deal/{userID:int}/{age:int}")]
-        //// public Card Deal(int userID, int age)
+        //[Route("api/Play/Deal/{userID:int}/{age:int}")]
+        // public Card Deal(int userID, int age)
 
-      
-        //[HttpGet]
-        //[Route("Deal")]
-        ////[ResponseType(typeof(Card))]
-        //public ActionResult<Card> Deal()
-        //{
-        //    Card card = highCardGame.Deal();
-        //    //return 5;
-        //    return card;
-        //}
 
-        //// GET api/play
-        
-        //[HttpGet]
-        ////[Route("api/play")]
-        //public ActionResult<IEnumerable<string>> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        [HttpGet]
+        [Route("Deal")]
+        //[ResponseType(typeof(Card))]
+        public ActionResult<Card> Deal()
+        {
+            Card card = null;//highCardGame.Deal();
+            //return 5;
+            return card;
+        }
 
-        //// GET api/play/5
-        //[HttpGet("{id}")]
-        //public ActionResult<string> Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET api/play
 
-        //// POST api/play
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        [HttpGet]
+        //[Route("api/play")]
+        public ActionResult<IEnumerable<string>> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
-        //// PUT api/play/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        // GET api/play/5
+        [HttpGet("{id}")]
+        public ActionResult<string> Get(int id)
+        {
+            return "value";
+        }
 
-        //// DELETE api/play/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // POST api/play
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
+
+        // PUT api/play/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE api/play/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }

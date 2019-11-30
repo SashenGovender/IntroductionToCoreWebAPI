@@ -20,6 +20,7 @@ namespace BlackjackLib
     public class Blackjack : IBlackjack
     {
         const int BlackjackWin = 21;
+
         // ---------------------------------------------------------------------------------------------------------------
         public Player Dealer { get; private set; }
         public List<Player> Players { get; private set; }

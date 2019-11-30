@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlackjackLib;
+using IntroductionToCoreWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntroductionToCoreWebAPI.Controllers
@@ -10,28 +11,41 @@ namespace IntroductionToCoreWebAPI.Controllers
     [ApiController]
     public class BlackjackController : ControllerBase
     {
-        public Blackjack BlackjackGame { get; set; }
+        // ---------------------------------------------------------------------------------------------------------------
+        public Blackjack BlackjackGame { get; private set; }
+
+        // ---------------------------------------------------------------------------------------------------------------
         public BlackjackController()
         {
-            BlackjackGame = new Blackjack(new List<Deck>(), new List<Player>(), new Player(new List<Card>(), 1));
+            InitialiseBlackjackGame();
         }
 
-        //[Route("api/Play/Deal/{userID:int}/{age:int}")]
-        // public Card Deal(int userID, int age)
+        // ---------------------------------------------------------------------------------------------------------------
+        private void InitialiseBlackjackGame()
+        {
+            Deck standardDeck1 = DeckFactory.CreateDeck(DeckType.Standard);
+            Deck standardDeck2 = DeckFactory.CreateDeck(DeckType.Standard);
+            const int dealerID = 0;
+            BlackjackGame = new Blackjack(new List<Deck>() { standardDeck1, standardDeck2 }, new List<Player>(), new Player(new List<Card>(), dealerID));
+        }
 
-      
+        // ---------------------------------------------------------------------------------------------------------------
         [HttpGet]
         [Route("Deal")]
         //[ResponseType(typeof(Card))]
-        public ActionResult<Card> Deal()
+        public ActionResult<Card> Deal(int numberOfPlayers)
         {
+            if (numberOfPlayers <= 0)
+            {
+                return BadRequest(new ErrorResult(1, "Negative Number of Players"));
+            }
             Card card = null;//highCardGame.Deal();
             //return 5;
             return card;
         }
 
         // GET api/play
-        
+
         [HttpGet]
         //[Route("api/play")]
         public ActionResult<IEnumerable<string>> Get()
