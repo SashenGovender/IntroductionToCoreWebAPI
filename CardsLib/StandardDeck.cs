@@ -4,6 +4,7 @@ namespace BlackjackLib
 {
     public class StandardDeck : Deck
     {
+        // ---------------------------------------------------------------------------------------------------------------
         public StandardDeck() : base(new List<Card>())
         {
             for (int cardFace = (int)CardFace.Ace; cardFace <= (int)CardFace.King; cardFace++)
@@ -16,5 +17,6 @@ namespace BlackjackLib
 
             this.Shuffle();
         }
+        // ---------------------------------------------------------------------------------------------------------------
     }
 }

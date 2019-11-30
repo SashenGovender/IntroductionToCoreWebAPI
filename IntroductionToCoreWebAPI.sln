@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntroductionToCoreWebAPI", "IntroductionToCoreWebAPI.csproj", "{EC6EB1BC-0A23-4364-A240-DB1154604C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackjackLib", "BlackjackLib\BlackjackLib.csproj", "{A59BD4B6-B756-4237-A99E-BB6ECA7F84AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlackjackLib", "BlackjackLib\BlackjackLib.csproj", "{A59BD4B6-B756-4237-A99E-BB6ECA7F84AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardsLib", "CardsLib\CardsLib.csproj", "{A7F1345C-A895-4ED4-8ECD-14504EB4252E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A59BD4B6-B756-4237-A99E-BB6ECA7F84AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59BD4B6-B756-4237-A99E-BB6ECA7F84AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59BD4B6-B756-4237-A99E-BB6ECA7F84AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F1345C-A895-4ED4-8ECD-14504EB4252E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F1345C-A895-4ED4-8ECD-14504EB4252E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F1345C-A895-4ED4-8ECD-14504EB4252E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F1345C-A895-4ED4-8ECD-14504EB4252E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

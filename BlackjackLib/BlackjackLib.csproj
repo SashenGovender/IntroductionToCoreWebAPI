@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Card.cs" />
+    <Compile Remove="Deck.cs" />
+    <Compile Remove="Enums.cs" />
+    <Compile Remove="StandardDeck.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CardsLib\CardsLib.csproj" />
+  </ItemGroup>
+
 </Project>
