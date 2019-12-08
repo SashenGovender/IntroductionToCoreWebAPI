@@ -1,0 +1,79 @@
+html {
+    background-image: url('images/background.d02c646e5ac07cfc67de223b422ee804.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+h1.heading {
+    text-align: center;
+    color: orange;
+    font-size: 50px;
+}
+
+h2.subHeading {
+    text-align: center;
+    color: lightgreen;
+    font-size: 20px;
+}
+
+.button {
+    background-color: white;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    border-radius: 15px;
+}
+
+.buttonBlackjack {
+    background-image: url('images/blackjack.jpg');
+    background-size: cover;
+    border: 2px solid black;
+    top: 40%;
+    left: 10%;
+}
+
+.buttonHighCard {
+    background-image: url('images/highcard.jpg');
+    background-size: cover;
+    border: 2px solid black;
+    top: 40%;
+    left: 40%;
+}
+
+.buttonBaccarat {
+    background-image: url('images/baccarat.jpg');
+    background-size: cover;
+    border: 2px solid black;
+    top: 40%;
+    left: 70%;
+}
+
+.buttonBlackjack:hover {
+    background-color: black;
+    color: white;
+    filter: brightness(150%);
+}
+
+.buttonBaccarat:hover {
+    background-color: black;
+    color: white;
+    filter: brightness(150%);
+}
+
+.buttonHighCard:hover {
+    background-color: black;
+    color: white;
+    filter: brightness(150%);
+}

@@ -2,18 +2,20 @@
 <html>
 
 <head>
-    <h1>Games Unlimited</h1>
-    <p>Welcome to games unlimited. Please choose a game to play</p>
-    <button type="button" id="deal" onclick="LaunchBlackjack()">Blackjack</button>
-    <button type="button" id="deal" onclick="LaunchHighCard()">High Card</button>
+    <link rel="stylesheet" href="welcome.css">
+
+    <h1 class="heading">Archaic Gaming</h1>
+    <h2 class="subHeading">A place you will never forget. Please choose a game to play</h2>
+
+    <button class="button buttonBlackjack" id="deal" onclick="LaunchBlackjack()"></button>
+    <button class="button buttonBaccarat" id="deal" onclick="LaunchHighCard()"></button>
+    <button class="button buttonHighCard" id="deal" onclick="LaunchHighCard()"></button>
 </head>
 
 <body>
-    <img src="images/background.d02c646e5ac07cfc67de223b422ee804.jpg" />
-
     <script type="text/javascript">
-
         const url = "https://localhost:44339/";
+
         function LaunchBlackjack() {
             window.open(() => `${url}/blackjack.html`);
         }
@@ -21,8 +23,7 @@
             window.open(() => `${url}/highcard.html`);
         }
     </script>
-    
-</body>
 
+</body>
 
 </html>
