@@ -8,7 +8,9 @@ namespace BlackjackLib
         public List<Card> Cards { get; private set; }
         public int PlayerID { get; private set; }
 
-        public int Score => CalculateScore();
+        public int Score => CalculateScore(); //todo: check if there is a better way to do this
+
+        public bool IsBurst => this.Score > 21;
 
         // ---------------------------------------------------------------------------------------------------------------
         public Player(List<Card> cards, int playerId)

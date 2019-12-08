@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 //using System.Text.Json;
 using BlackjackLib;
 using IntroductionToCoreWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 
 namespace IntroductionToCoreWebAPI.Controllers
 {
+
     // [Route("api/[controller]/[action]/{id?}")]
     [Route("api/[controller]")]
     [ApiController]
     public class BlackjackController : ControllerBase
     {
+
         // ---------------------------------------------------------------------------------------------------------------
         public Blackjack BlackjackGame { get; private set; }
 
@@ -27,8 +31,8 @@ namespace IntroductionToCoreWebAPI.Controllers
         {
             Deck standardDeck1 = DeckFactory.CreateDeck(DeckType.Standard);
             Deck standardDeck2 = DeckFactory.CreateDeck(DeckType.Standard);
-            const int dealerID = 0;
-            BlackjackGame = new Blackjack(new List<Deck>() { standardDeck1, standardDeck2 }, new List<Player>(), new Player(new List<Card>(), dealerID));
+
+            BlackjackGame = new Blackjack(new List<Deck>() { standardDeck1, standardDeck2 }, new List<Player>(), new Player(new List<Card>(), Blackjack.DealerId));
         }
 
         // ---------------------------------------------------------------------------------------------------------------
@@ -44,20 +48,75 @@ namespace IntroductionToCoreWebAPI.Controllers
 
             for (int players = 0; players < numberOfPlayers; players++)
             {
-                this.BlackjackGame.Players.Add(new Player(new List<Card>(),players+1 ));
+                this.BlackjackGame.Players.Add(new Player(new List<Card>(), players + 1));
             }
 
             this.BlackjackGame.Deal();
-            var abc = new DealResponse(this.BlackjackGame.Dealer, this.BlackjackGame.Players);
+            var abc = new
+            {
+                Dealer = this.BlackjackGame.Dealer,
+                Players = this.BlackjackGame.Players,
+            };
             // return JsonSerializer.Serialize(abc);
-            
-           // var stringEnumConverter = new System.Text.Json.Serialization.JsonStringEnumConverter(); //
-           // JsonSerializerOptions opts = new JsonSerializerOptions();
+
+            // var stringEnumConverter = new System.Text.Json.Serialization.JsonStringEnumConverter(); //
+            // JsonSerializerOptions opts = new JsonSerializerOptions();
             //opts.Converters.Add(stringEnumConverter);
-           // return JsonSerializer.Serialize<DealResponse>(abc);
+            // return JsonSerializer.Serialize<DealResponse>(abc);
+
+            //todo: need store state
             return JsonConvert.SerializeObject(abc);
         }
 
+        // ---------------------------------------------------------------------------------------------------------------
+        [HttpGet]
+        [Route("Hit/{playerId}")]
+        public ActionResult<string> Hit(int playerId)
+        {
+            //todo: need to check if valid playerID. ie 90000 is not valid
+            //todo: need some sort of restore game state
+            //  sets the deck, player
+            if (playerId < 0)
+            {
+                return BadRequest(new ErrorResult(1, "Negative Number of Players"));
+            }
+
+            //*****************Temp code to test Hit
+            for (int players = 0; players < 2; players++)
+            {
+                this.BlackjackGame.Players.Add(new Player(new List<Card>(), players + 1));
+            }
+            this.BlackjackGame.Deal();
+            //*****************Temp code to test Hit
+
+            this.BlackjackGame.Hit(playerId);
+
+            if (playerId == Blackjack.DealerId)
+            {
+                //todo: need store state
+                var result = new
+                {
+                    Dealer = this.BlackjackGame.Dealer,
+                    GameResult = this.BlackjackGame.Players.Select(player => new
+                    {
+                        PlayerId = player.PlayerID,
+                        PlayerResult = this.BlackjackGame.EvaluateHand(player.PlayerID)
+                    })
+                };
+
+                return JsonConvert.SerializeObject(result);
+            }
+            else
+            {
+                //todo: need store state
+                return JsonConvert.SerializeObject(this.BlackjackGame.Players.FirstOrDefault(player => player.PlayerID == playerId));
+            }
+
+        }
+
+
+
+        // ---------------------------------------------------------------------------------------------------------------
         // GET api/play
 
         [HttpGet]

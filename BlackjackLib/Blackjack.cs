@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum PlayResult
 {
     PlayerBurst,
@@ -19,7 +22,8 @@ namespace BlackjackLib
 {
     public class Blackjack : IBlackjack
     {
-        const int BlackjackWin = 21;
+        private const int BlackjackWin = 21;
+        public const int DealerId = 0;
 
         // ---------------------------------------------------------------------------------------------------------------
         public Player Dealer { get; private set; }
@@ -53,19 +57,19 @@ namespace BlackjackLib
         // ---------------------------------------------------------------------------------------------------------------
         public void Hit(int playerId)
         {
-            //this.Players.Any(player => player.PlayerID == playerId)
-                this.Players.First(player => player.PlayerID == playerId).AddCard(GetCard());
-        }
-
-        // ---------------------------------------------------------------------------------------------------------------
-        public void DealerHit()
-        {
-            while (this.Dealer.Score <= 17)
+            if (playerId == Blackjack.DealerId)
             {
-                this.Dealer.AddCard(GetCard());
+                while (this.Dealer.Score <= 17)
+                {
+                    this.Dealer.AddCard(GetCard());
+                }
+            }
+            else
+            {
+                this.Players.First(player => player.PlayerID == playerId).AddCard(GetCard());
             }
         }
-        
+
         // ---------------------------------------------------------------------------------------------------------------
         public PlayResult EvaluateHand(int playerId)
         {
