@@ -2,7 +2,7 @@
 
 namespace BlackjackData.Migrations
 {
-    public partial class IntialMigration : Migration
+    public partial class IntialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,10 @@ namespace BlackjackData.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(nullable: false),
+                    SessionId = table.Column<string>(nullable: false),
                     PlayerId = table.Column<int>(nullable: false),
                     Score = table.Column<int>(nullable: false),
-                    PlayerCards = table.Column<string>(nullable: true)
+                    PlayerCards = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
