@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BlackjackData;
+using BlackjackData.Models;
 using BlackjackLib;
 using IntroductionToCoreWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-//using System.Text.Json;
 
 namespace ArchaicGaming.WebAPI.Controllers
 {
 
-    // [Route("api/[controller]/[action]/{id?}")]
     [Route("api/[controller]")]
     [ApiController]
     public class BlackjackController : ControllerBase
@@ -20,6 +20,7 @@ namespace ArchaicGaming.WebAPI.Controllers
         public Blackjack BlackjackGame { get; private set; }
 
         private readonly IBlackjackData _blackjackPlayerData;
+
         // ---------------------------------------------------------------------------------------------------------------
         public BlackjackController(IBlackjackData blackjackPlayerData)
         {
@@ -40,7 +41,6 @@ namespace ArchaicGaming.WebAPI.Controllers
         // ---------------------------------------------------------------------------------------------------------------
         [HttpGet]
         [Route("Deal/{numberOfPlayers}")]
-        //[ResponseType(typeof(Card))]
         public ActionResult<string> Deal(int numberOfPlayers)
         {
             if (numberOfPlayers <= 0)
@@ -54,23 +54,24 @@ namespace ArchaicGaming.WebAPI.Controllers
             }
 
             this.BlackjackGame.Deal();
-            var abc = new
+
+            var dealResponse = new
             {
                 Dealer = this.BlackjackGame.Dealer,
                 Players = this.BlackjackGame.Players,
             };
-            // return JsonSerializer.Serialize(abc);
 
-            // var stringEnumConverter = new System.Text.Json.Serialization.JsonStringEnumConverter(); //
-            // JsonSerializerOptions opts = new JsonSerializerOptions();
-            //opts.Converters.Add(stringEnumConverter);
-            // return JsonSerializer.Serialize<DealResponse>(abc);
+            //Store the State
+            _blackjackPlayerData.AddPlayerSessionInformation(new PlayerSessionData()
+            {
+                PlayerCards = string.Join(";", dealResponse.Dealer.Cards), 
+                PlayerId = dealResponse.Dealer.PlayerID, 
+                Score = dealResponse.Dealer.Score, 
+                SessionId = Guid.NewGuid().ToString(),
+            });
 
-            //todo: need store state
-           // _blackjackPlayerData.AddPlayerSessionInformation();
 
-
-            return JsonConvert.SerializeObject(abc);
+            return JsonConvert.SerializeObject(dealResponse);
         }
 
         // ---------------------------------------------------------------------------------------------------------------

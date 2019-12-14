@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace BlackjackLib
 {
@@ -23,6 +24,11 @@ namespace BlackjackLib
             Value = value;
         }
 
+        // ---------------------------------------------------------------------------------------------------------------
+        public override string ToString()
+        {
+            return $"{FaceValue}{Suit}";
+        }
         // ---------------------------------------------------------------------------------------------------------------
     }
 }
