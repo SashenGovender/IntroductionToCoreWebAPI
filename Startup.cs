@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BlackjackData;
+using DatabaseServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +27,7 @@ namespace IntroductionToCoreWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddScoped<IBlackjackData, BlackjackDataService>();
             //entity framework talking to our database
             services.AddDbContext<PlayerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PlayerConnection")));
