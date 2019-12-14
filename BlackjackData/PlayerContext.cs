@@ -1,4 +1,4 @@
-﻿using System;
+﻿using BlackjackData.Models;
 using Microsoft.EntityFrameworkCore;
 
 /*

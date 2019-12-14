@@ -1,14 +1,10 @@
-﻿using BlackjackLib;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 // Package Manager Console to update DB
 //  add-migration "Intial Migration"
-//  pdate-migrations
+//  update-database
 
-namespace BlackjackData
+namespace BlackjackData.Models
 {
     public class PlayerSessionData
     {
@@ -16,7 +12,7 @@ namespace BlackjackData
         public int Id { get; set; }
 
         [Required]
-        public int SessionId { get; set; }
+        public string SessionId { get; set; }
 
         [Required]
         public int PlayerId  { get; set; }

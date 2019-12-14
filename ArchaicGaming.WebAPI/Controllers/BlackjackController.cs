@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-//using System.Text.Json;
+using BlackjackData;
 using BlackjackLib;
 using IntroductionToCoreWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
+//using System.Text.Json;
 
-namespace IntroductionToCoreWebAPI.Controllers
+namespace ArchaicGaming.WebAPI.Controllers
 {
 
     // [Route("api/[controller]/[action]/{id?}")]
@@ -20,9 +19,12 @@ namespace IntroductionToCoreWebAPI.Controllers
         // ---------------------------------------------------------------------------------------------------------------
         public Blackjack BlackjackGame { get; private set; }
 
+        private readonly IBlackjackData _blackjackPlayerData;
         // ---------------------------------------------------------------------------------------------------------------
-        public BlackjackController()
+        public BlackjackController(IBlackjackData blackjackPlayerData)
         {
+            _blackjackPlayerData = blackjackPlayerData;
+
             InitialiseBlackjackGame();
         }
 
@@ -65,6 +67,9 @@ namespace IntroductionToCoreWebAPI.Controllers
             // return JsonSerializer.Serialize<DealResponse>(abc);
 
             //todo: need store state
+           // _blackjackPlayerData.AddPlayerSessionInformation();
+
+
             return JsonConvert.SerializeObject(abc);
         }
 
@@ -117,38 +122,38 @@ namespace IntroductionToCoreWebAPI.Controllers
 
 
         // ---------------------------------------------------------------------------------------------------------------
-        // GET api/play
+        //// GET api/play
 
-        [HttpGet]
-        //[Route("api/play")]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //[HttpGet]
+        ////[Route("api/play")]
+        //public ActionResult<IEnumerable<string>> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
-        // GET api/play/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
+        //// GET api/play/5
+        //[HttpGet("{id}")]
+        //public ActionResult<string> Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // POST api/play
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST api/play
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
 
-        // PUT api/play/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT api/play/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/play/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/play/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

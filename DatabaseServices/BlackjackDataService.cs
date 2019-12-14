@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlackjackData;
+using BlackjackData.Models;
 
 //Any interactions with the database
 namespace DatabaseServices
@@ -20,7 +21,7 @@ namespace DatabaseServices
             return _playerContext.PlayerSessionInformation;
         }
 
-        public IEnumerable<PlayerSessionData> GetBySessionId(int sessionId)
+        public IEnumerable<PlayerSessionData> GetBySessionId(string sessionId)
         {
             return _playerContext.PlayerSessionInformation.Where(pInfo => pInfo.SessionId == sessionId);
         }
