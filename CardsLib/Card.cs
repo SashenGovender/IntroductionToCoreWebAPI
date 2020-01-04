@@ -1,7 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace BlackjackLib
+namespace CardsLib
 {
     public class Card
     {
@@ -25,7 +24,7 @@ namespace BlackjackLib
             FaceValue = faceValue;
             Suit = suit;
             Value = value;
-            CardId = ((int) suit * 100) + (int) faceValue;
+            CardId = ((int)suit * 100) + (int)faceValue;
         }
 
         // ---------------------------------------------------------------------------------------------------------------

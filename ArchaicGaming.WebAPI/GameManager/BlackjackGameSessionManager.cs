@@ -4,6 +4,7 @@ using System.Linq;
 using BlackjackData;
 using BlackjackData.Models;
 using BlackjackLib;
+using CardsLib;
 
 namespace ArchaicGaming.WebAPI.GameManager
 {
@@ -72,6 +73,7 @@ namespace ArchaicGaming.WebAPI.GameManager
                 }
             }
         }
+
         // ---------------------------------------------------------------------------------------------------------------
         private PlayerSessionData CreatePlayerSessionObject(Player player, string sessionGuid)
         {
@@ -90,12 +92,3 @@ namespace ArchaicGaming.WebAPI.GameManager
         // ---------------------------------------------------------------------------------------------------------------
     }
 }
-
-//var dealerData = gameData.First(sessionInfo => sessionInfo.PlayerId == Blackjack.DealerId);
-//var dealerCardIds = dealerData.PlayerCardIds.Split(';');
-//foreach (var dealerCardId in dealerCardIds)
-//{
-//    this.BlackjackGame.Dealer.AddCard(this.BlackjackGame.CardDeck[0].GetCard(Convert.ToInt32(dealerCardId)));
-//}
-
-//var playersData = gameData.Where(sessionInfo => sessionInfo.PlayerId != Blackjack.DealerId);

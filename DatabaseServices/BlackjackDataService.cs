@@ -33,7 +33,7 @@ namespace DatabaseServices
         // ---------------------------------------------------------------------------------------------------------------
         public string GetLatestSessionId()
         {
-            int latElementId =  _playerContext.PlayerSessionInformation.Max(x => x.Id);
+            int latElementId = _playerContext.PlayerSessionInformation.Max(x => x.Id);
             return _playerContext.PlayerSessionInformation.First(pInfo => pInfo.Id == latElementId).SessionId;
         }
 
@@ -47,14 +47,14 @@ namespace DatabaseServices
         // ---------------------------------------------------------------------------------------------------------------
         public void UpdatePlayerSessionInformation(PlayerSessionData newPlayerData)
         {
-            var entity = _playerContext.PlayerSessionInformation.FirstOrDefault(pInfo => pInfo.SessionId == newPlayerData.SessionId && pInfo.PlayerId==newPlayerData.PlayerId);
+            var entity = _playerContext.PlayerSessionInformation.FirstOrDefault(pInfo => pInfo.SessionId == newPlayerData.SessionId && pInfo.PlayerId == newPlayerData.PlayerId);
 
             if (entity != null)
             {
                 // Make changes on entity
                 entity.Score = newPlayerData.Score;
                 entity.PlayerCards = newPlayerData.PlayerCards;
-                entity.PlayerCardIds = newPlayerData.PlayerCardIds
+                entity.PlayerCardIds = newPlayerData.PlayerCardIds;
 
                 // Update entity in DbSet
                 _playerContext.PlayerSessionInformation.Update(entity);

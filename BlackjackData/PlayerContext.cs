@@ -24,12 +24,10 @@ namespace BlackjackData
 
         public PlayerContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
-         public DbSet<PlayerSessionData> PlayerSessionInformation { get; set; }
-
-
+        public DbSet<PlayerSessionData> PlayerSessionInformation { get; set; }
 
     }
 }

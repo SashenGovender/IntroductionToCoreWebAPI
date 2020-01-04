@@ -15,10 +15,10 @@ namespace BlackjackData.Models
         public string SessionId { get; set; }
 
         [Required]
-        public int PlayerId  { get; set; }
+        public int PlayerId { get; set; }
 
         [Required]
-        [Range(0,30)]
+        [Range(0, 30)]
         public int Score { get; set; }
 
         [Required]
@@ -29,4 +29,3 @@ namespace BlackjackData.Models
 
     }
 }
- 

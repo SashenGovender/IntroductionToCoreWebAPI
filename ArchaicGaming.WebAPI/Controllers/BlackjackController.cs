@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArchaicGaming.WebAPI.GameManager;
+using ArchaicGaming.WebAPI.Models;
 using BlackjackData;
-using BlackjackData.Models;
 using BlackjackLib;
-using IntroductionToCoreWebAPI.Models;
+using CardsLib;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -81,13 +81,13 @@ namespace ArchaicGaming.WebAPI.Controllers
         [Route("Hit/{playerId}")]
         public ActionResult<string> Hit(int playerId)
         {
-            _gameSessionManager.RestoreGameState(this.BlackjackGame);
-
             //todo: need to check if valid playerID. ie 90000 is not valid
             if (playerId < 0)
             {
                 return BadRequest(new ErrorResult(1, "Negative Number of Players"));
             }
+
+            _gameSessionManager.RestoreGameState(this.BlackjackGame);
 
             this.BlackjackGame.Hit(playerId);
 
@@ -110,12 +110,10 @@ namespace ArchaicGaming.WebAPI.Controllers
                     PlayerResult = this.BlackjackGame.EvaluateHand(player.PlayerID)
                 })
             };
+
             //todo: need store state
             return JsonConvert.SerializeObject(result);
-
-
         }
-
 
 
         // ---------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,4 @@
-using System;
-
-namespace IntroductionToCoreWebAPI.Models
+namespace ArchaicGaming.WebAPI.Models
 {
     public class ErrorViewModel
     {

@@ -1,11 +1,10 @@
-﻿
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BlackjackLib
+namespace CardsLib
 {
-    ////https://stackoverflow.com/questions/2441290/javascriptserializer-json-serialization-of-enum-as-string
+    // ---------------------------------------------------------------------------------------------------------------
+    //https://stackoverflow.com/questions/2441290/javascriptserializer-json-serialization-of-enum-as-string
     [JsonConverter(typeof(StringEnumConverter))]
     public enum CardSuit
     {
@@ -15,6 +14,7 @@ namespace BlackjackLib
         Spades
     };
 
+    // ---------------------------------------------------------------------------------------------------------------
     [JsonConverter(typeof(StringEnumConverter))]
     public enum CardFace
     {
@@ -32,4 +32,5 @@ namespace BlackjackLib
         Queen,
         King,
     }
+    // ---------------------------------------------------------------------------------------------------------------
 }

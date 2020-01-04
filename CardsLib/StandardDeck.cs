@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BlackjackLib
+namespace CardsLib
 {
     public class StandardDeck : Deck
     {
