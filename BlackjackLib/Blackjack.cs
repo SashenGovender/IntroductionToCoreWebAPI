@@ -115,7 +115,7 @@ namespace BlackjackLib
         }
 
         // ---------------------------------------------------------------------------------------------------------------
-            private Card GetCard()
+        private Card GetCard()
         {
             if (this.CardDeck.Count == 0)
             {
@@ -135,6 +135,28 @@ namespace BlackjackLib
         }
 
         // ---------------------------------------------------------------------------------------------------------------
+        //add a comment about only using this to restore state
+        public Card GetCard(int id)
+        {
+            if (this.CardDeck.Count == 0)
+            {
+                throw new Exception("No Cards in Card Deck");
+            }
 
+            foreach (var deck in this.CardDeck)
+            {
+                Card card = deck.GetCard(id);
+                if (card != null)
+                {
+                    if (deck.Cards.Count == 0)
+                    {
+                        this.CardDeck.Remove(deck);
+                    }
+                    return card;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -3,7 +3,7 @@
 // Package Manager Console to update DB
 //  add-migration "Intial Migration"
 //  update-database
-
+// SELECT * from PlayerSessionInformation
 namespace BlackjackData.Models
 {
     public class PlayerSessionData
@@ -24,6 +24,8 @@ namespace BlackjackData.Models
         [Required]
         public string PlayerCards { get; set; }
 
+        [Required]
+        public string PlayerCardIds { get; set; }
 
     }
 }

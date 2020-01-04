@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlackjackData\BlackjackData.csproj" />
     <ProjectReference Include="..\CardsLib\CardsLib.csproj" />
   </ItemGroup>
 

@@ -9,7 +9,7 @@ namespace BlackjackLib
     [JsonConverter(typeof(StringEnumConverter))]
     public enum CardSuit
     {
-        Hearts,
+        Hearts = 1,
         Diamonds,
         Clubs,
         Spades

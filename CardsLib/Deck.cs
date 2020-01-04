@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace BlackjackLib
@@ -40,6 +41,25 @@ namespace BlackjackLib
         }
 
         // ---------------------------------------------------------------------------------------------------------------
+        public Card GetCard(int id)
+        {
+            int numCards = this.Cards.Count;
+
+            if (numCards <= 0)
+                return null;
+
+            bool hasCard = Cards.Exists(c => c.CardId == id);
+            if (!hasCard)
+                return null;
+
+            Card card = null;
+            card = Cards.FirstOrDefault(c => c.CardId == id);
+            Cards.Remove(card); // test this
+
+            return card;
+        }
+
+        // ---------------------------------------------------------------------------------------------------------------'
         public void Shuffle()
         {
             Random rand = new Random();

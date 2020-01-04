@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ArchaicGaming.WebAPI.GameManager;
 using BlackjackData;
 using BlackjackData.Models;
 using BlackjackLib;
@@ -19,12 +20,12 @@ namespace ArchaicGaming.WebAPI.Controllers
         // ---------------------------------------------------------------------------------------------------------------
         public Blackjack BlackjackGame { get; private set; }
 
-        private readonly IBlackjackData _blackjackPlayerData;
+        private readonly BlackjackGameSessionManager _gameSessionManager;
 
         // ---------------------------------------------------------------------------------------------------------------
         public BlackjackController(IBlackjackData blackjackPlayerData)
         {
-            _blackjackPlayerData = blackjackPlayerData;
+            _gameSessionManager = new BlackjackGameSessionManager(blackjackPlayerData);
 
             InitialiseBlackjackGame();
         }
@@ -35,7 +36,13 @@ namespace ArchaicGaming.WebAPI.Controllers
             Deck standardDeck1 = DeckFactory.CreateDeck(DeckType.Standard);
             Deck standardDeck2 = DeckFactory.CreateDeck(DeckType.Standard);
 
-            BlackjackGame = new Blackjack(new List<Deck>() { standardDeck1, standardDeck2 }, new List<Player>(), new Player(new List<Card>(), Blackjack.DealerId));
+            BlackjackGame = new Blackjack(
+                new List<Deck>()
+                {
+                    standardDeck1, standardDeck2
+                },
+                new List<Player>(),
+                new Player(new List<Card>(), Blackjack.DealerId));
         }
 
         // ---------------------------------------------------------------------------------------------------------------
@@ -43,34 +50,29 @@ namespace ArchaicGaming.WebAPI.Controllers
         [Route("Deal/{numberOfPlayers}")]
         public ActionResult<string> Deal(int numberOfPlayers)
         {
+            //Valid the number of players
             if (numberOfPlayers <= 0)
             {
                 return BadRequest(new ErrorResult(1, "Negative Number of Players"));
             }
 
+            //Initialise the player hands for the game
             for (int players = 0; players < numberOfPlayers; players++)
             {
                 this.BlackjackGame.Players.Add(new Player(new List<Card>(), players + 1));
             }
-
+            // carry out the deal
             this.BlackjackGame.Deal();
 
+            //Store the State
+            _gameSessionManager.SaveGameState(this.BlackjackGame);
+
+            //create the response to send to the client
             var dealResponse = new
             {
                 Dealer = this.BlackjackGame.Dealer,
                 Players = this.BlackjackGame.Players,
             };
-
-            //Store the State
-            _blackjackPlayerData.AddPlayerSessionInformation(new PlayerSessionData()
-            {
-                PlayerCards = string.Join(";", dealResponse.Dealer.Cards), 
-                PlayerId = dealResponse.Dealer.PlayerID, 
-                Score = dealResponse.Dealer.Score, 
-                SessionId = Guid.NewGuid().ToString(),
-            });
-
-
             return JsonConvert.SerializeObject(dealResponse);
         }
 
@@ -79,82 +81,47 @@ namespace ArchaicGaming.WebAPI.Controllers
         [Route("Hit/{playerId}")]
         public ActionResult<string> Hit(int playerId)
         {
+            _gameSessionManager.RestoreGameState(this.BlackjackGame);
+
             //todo: need to check if valid playerID. ie 90000 is not valid
-            //todo: need some sort of restore game state
-            //  sets the deck, player
             if (playerId < 0)
             {
                 return BadRequest(new ErrorResult(1, "Negative Number of Players"));
             }
 
-            //*****************Temp code to test Hit
-            for (int players = 0; players < 2; players++)
-            {
-                this.BlackjackGame.Players.Add(new Player(new List<Card>(), players + 1));
-            }
-            this.BlackjackGame.Deal();
-            //*****************Temp code to test Hit
-
             this.BlackjackGame.Hit(playerId);
 
-            if (playerId == Blackjack.DealerId)
+            //if normal player then return result for just that player
+            if (playerId != Blackjack.DealerId)
             {
-                //todo: need store state
-                var result = new
-                {
-                    Dealer = this.BlackjackGame.Dealer,
-                    GameResult = this.BlackjackGame.Players.Select(player => new
-                    {
-                        PlayerId = player.PlayerID,
-                        PlayerResult = this.BlackjackGame.EvaluateHand(player.PlayerID)
-                    })
-                };
+                var playerData = this.BlackjackGame.Players.FirstOrDefault(player => player.PlayerID == playerId);
+                _gameSessionManager.UpdateGameState(playerData);
 
-                return JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(playerData);
             }
-            else
+
+            //if dealer hit then proceed to evaluate all hands
+            var result = new
             {
-                //todo: need store state
-                return JsonConvert.SerializeObject(this.BlackjackGame.Players.FirstOrDefault(player => player.PlayerID == playerId));
-            }
+                Dealer = this.BlackjackGame.Dealer,
+                GameResult = this.BlackjackGame.Players.Select(player => new
+                {
+                    PlayerId = player.PlayerID,
+                    PlayerResult = this.BlackjackGame.EvaluateHand(player.PlayerID)
+                })
+            };
+            //todo: need store state
+            return JsonConvert.SerializeObject(result);
+
 
         }
 
 
 
         // ---------------------------------------------------------------------------------------------------------------
-        //// GET api/play
 
-        //[HttpGet]
-        ////[Route("api/play")]
-        //public ActionResult<IEnumerable<string>> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
-        //// GET api/play/5
-        //[HttpGet("{id}")]
-        //public ActionResult<string> Get(int id)
-        //{
-        //    return "value";
-        //}
+        // ---------------------------------------------------------------------------------------------------------------
 
-        //// POST api/play
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/play/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/play/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

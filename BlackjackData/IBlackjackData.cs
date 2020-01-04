@@ -11,5 +11,7 @@ namespace BlackjackData
         IEnumerable<PlayerSessionData> GetBySessionId(string sessionId);
         void AddPlayerSessionInformation(PlayerSessionData newPlayerData);
         void UpdatePlayerSessionInformation(PlayerSessionData newPlayerData);
+        void SaveChangesToDatabase();
+        string GetLatestSessionId();
     }
 }

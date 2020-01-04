@@ -16,12 +16,16 @@ namespace BlackjackLib
         [JsonIgnore]
         public int Value { get; private set; }
 
+        [JsonIgnore]
+        public int CardId { get; private set; }
+
         // ---------------------------------------------------------------------------------------------------------------
         public Card(CardFace faceValue, CardSuit suit, int value)
         {
             FaceValue = faceValue;
             Suit = suit;
             Value = value;
+            CardId = ((int) suit * 100) + (int) faceValue;
         }
 
         // ---------------------------------------------------------------------------------------------------------------
