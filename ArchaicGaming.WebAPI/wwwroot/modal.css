@@ -10,11 +10,12 @@
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
   }
   
   /* Modal Content/Box */
   .modal-content {
-    background-color: #fefefe;
+    background-color:lightcyan;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
@@ -35,3 +36,26 @@
     text-decoration: none;
     cursor: pointer;
   } 
+
+  .modalDealButton {
+    position:relative;
+    top: 80%;
+    left: 45%;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.modalDealButton:hover {
+  background-color: lightgreen;
+  color: white;
+}
+
+.modelInputPlayers {
+  position:relative;
+  top: 80%;
+  left: 40%;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+
