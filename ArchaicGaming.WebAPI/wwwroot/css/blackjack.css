@@ -1,0 +1,49 @@
+html {
+    background-image: url('../images/blackjack_background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+h1.pageHeading {
+    text-align: center;
+    color: orange;
+    font-size: 50px;
+}
+
+h2 {
+    position: absolute;;
+    color: lightgreen;
+    font-size: 20px;
+
+}
+
+h2.dealerHeading {
+    position: absolute;
+    top: 15%;
+    left: 45%;
+    
+}
+
+h2.dealerScore {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    color: red;
+}
+
+img {
+    border-radius: 5%;
+    background-color: lightgray;
+    width:100px;
+    height: 150px;
+    transform-origin: 100% 100%;
+    position: absolute;
+    border: 1px solid black;
+
+}
+
+img.dealerCards {
+    top: 25%;
+    left: 45%;
+}

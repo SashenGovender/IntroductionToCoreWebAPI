@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/blackjack.css">
+    <link rel="stylesheet" href="../css/modal.css">
+
+    <h1 class="pageHeading">Blackjack</h1>
+    <!--<h2 class="pageSubHeading">The logical game </h2> -->
+</head>
+
+<body>
+    <!-- The Modal -->
+    <div id="numPlayersModelId" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 style="text-align:center">Please Input the number of players</h3>
+            <input class="modelInputPlayers" type="number" id=numPlayersInputId name="quantity" value="1" min="1"
+                max="5">
+            <button class="modalDealButton" type="button" id="dealBtnId" onclick="BeginGame()">Start Game</button>
+        </div>
+    </div>
+
+    <div id="dealerSectionId">
+        <h2 id="dealerNameId" class="dealerHeading">Dealer</h2>
+        <h2 id="dealerScoreId" class="dealerScore">Score</h2>
+    </div>
+
+    <!--Webpage Helping Methods-->
+    <script>
+        //Display a modal for the user to input the number of players
+        function DisplayModal() {
+
+            var modal = document.getElementById("numPlayersModelId");// Get the modal
+            modal.style.display = "block"; //Display the model
+
+            var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal      
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        }
+
+        //Create a image id to be used by the image resource
+        function CreateImageId(playerName, cardblockNumber) {
+
+            return `${playerName}ImgBlock${cardblockNumber}Id`;//ie player1ImgBlock1Id
+        }
+
+        //Create an image element with a card source file
+        function LoadImage(cardValue, cardSuit, degreeToRotate, imgElementId) {
+
+            var img = document.createElement('img');
+            img.src = `images/cards/${cardValue}${cardSuit}.png`;
+            img.id = imgElementId;
+            img.style.transform = `rotate(${degreeToRotate}deg)`;
+
+            return img;
+        }
+
+        //Create a h2 element with the passed in attributes
+        function CreatePlayerHeading2(id, text, topPosition, leftPosition) {
+            var playerHeadingElement = document.createElement('h2');
+            playerHeadingElement.id = id;
+            playerHeadingElement.textContent = text
+            playerHeadingElement.style.top = topPosition
+            playerHeadingElement.style.left = leftPosition
+
+            return playerHeadingElement;
+        }
+    </script>
+
+    <!--Blackjack Helping Methods-->
+    <script>
+        function SetDealerCards() {
+            var dealerSection = document.getElementById("dealerSectionId");
+
+            var img = LoadImage("Ace", "Clubs", 0, CreateImageId("dealer", 0));
+            img.classList.add("dealerCards");
+            dealerSection.appendChild(img);
+
+            img = LoadImage("Two", "Clubs", 10, CreateImageId("dealer", 1));
+            img.classList.add("dealerCards");
+            dealerSection.appendChild(img);
+
+            img = LoadImage("Three", "Clubs", 20, CreateImageId("dealer", 2));
+            img.classList.add("dealerCards");
+            dealerSection.appendChild(img);
+
+            var dealerScoreText = document.getElementById("dealerScoreId");
+            dealerScoreText.innerText = `${dealerScoreText.innerText} : ${50}`;
+
+        }
+
+        function SetPlayerCards() {
+            var dealerSection = document.getElementById("player1SectionId");
+
+            var img = LoadImage("Four", "Clubs", 0, CreateImageId("player1NameId", 0))
+            img.style.top = "65%"
+            img.style.left = document.getElementById("player1NameId").style.left;
+            dealerSection.appendChild(img);
+
+            img = LoadImage("King", "Clubs", 10, CreateImageId("player1NameId", 1));
+            img.style.top = "65%"
+            img.style.left = document.getElementById("player1NameId").style.left;
+            dealerSection.appendChild(img);
+
+            img = LoadImage("Jack", "Clubs", 20, CreateImageId("player1NameId", 2));
+            img.style.top = "65%"
+            img.style.left = document.getElementById("player1NameId").style.left;
+            dealerSection.appendChild(img);
+
+            var dealerScoreText = document.getElementById("player1ScoreId");
+            dealerScoreText.innerText = `${dealerScoreText.innerText} : ${21}`;
+
+        }
+
+        function BeginGame() {
+
+            // remove the model
+            var modal = document.getElementById("numPlayersModelId");
+            modal.style.display = "none";
+
+            var numPlayers = parseInt(document.getElementById("numPlayersInputId").value);
+            for (var player = 1; player <= numPlayers; player++) {
+
+
+                var playerDiv = document.createElement("div");
+                playerDiv.id = `player${player}SectionId`;
+                document.body.appendChild(playerDiv);
+
+                var playerHeading = CreatePlayerHeading2(`player${player}NameId`,
+                    `Player ${player}`,
+                    "55%",
+                    `${3 + (100 / numPlayers) * (player - 1)}%`
+                );
+                playerDiv.appendChild(playerHeading);
+
+                var playerScore = CreatePlayerHeading2(`player${player}ScoreId`,
+                    `Player Score ${player}`,
+                    "85%",
+                    `${3 + (100 / numPlayers) * (player - 1)}%`
+                );
+                playerDiv.appendChild(playerScore);
+            }
+
+            SetPlayerCards();
+        }
+    </script>
+
+    <!--Main-->
+    <script>
+        setTimeout(DisplayModal, 50);
+        SetDealerCards();
+    </script>
+
+    <script>
+        // function SetScore(scoreElementId, score) {
+        //     var scoreElement = document.getElementById(scoreElementId);
+        //     scoreElement.innerText = `${scoreElement.innerText} : ${score}`;
+        // }
+
+        // function PositionImage(img, playerPositionId) {
+        //     var playerPositionElement = document.getElementById(playerPositionId);
+        //     img.style.top = playerPositionElement.style.top;
+        //     img.style.left = playerPositionElement.style.left;
+        //}
+    </script>
+</body>
+
+
+</html>

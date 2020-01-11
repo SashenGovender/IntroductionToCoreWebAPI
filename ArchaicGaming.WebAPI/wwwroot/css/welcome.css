@@ -1,5 +1,5 @@
 html {
-    background-image: url('images/welcomebackground.jpg');
+    background-image: url('../images/welcomebackground.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgba(0, 0, 0, 0.5)
@@ -37,7 +37,7 @@ h2.subHeading {
 }
 
 .buttonBlackjack {
-    background-image: url('images/blackjack_btn.jpg');
+    background-image: url('../images/blackjack_btn.jpg');
     background-size: cover;
     border: 2px solid black;
     top: 40%;
@@ -45,7 +45,7 @@ h2.subHeading {
 }
 
 .buttonHighCard {
-    background-image: url('images/highcard_btn.jpg');
+    background-image: url('../images/highcard_btn.jpg');
     background-size: cover;
     border: 2px solid black;
     top: 40%;
@@ -53,7 +53,7 @@ h2.subHeading {
 }
 
 .buttonBaccarat {
-    background-image: url('images/baccarat_btn.jpg');
+    background-image: url('../images/baccarat_btn.jpg');
     background-size: cover;
     border: 2px solid black;
     top: 40%;
