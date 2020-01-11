@@ -52,7 +52,7 @@
         function LoadImage(cardValue, cardSuit, degreeToRotate, imgElementId) {
 
             var img = document.createElement('img');
-            img.src = `images/cards/${cardValue}${cardSuit}.png`;
+            img.src = `../images/cards/${cardValue}${cardSuit}.png`;
             img.id = imgElementId;
             img.style.transform = `rotate(${degreeToRotate}deg)`;
 
